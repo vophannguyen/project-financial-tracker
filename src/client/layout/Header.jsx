@@ -1,4 +1,14 @@
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../features/auth/authSlice";
+
 export default function Header() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  async function handleLogout() {
+    await dispatch(logout());
+    navigate("/");
+  }
   return (
     <header className="topbar">
       <div className="topbar__left">
@@ -26,6 +36,9 @@ export default function Header() {
         <div className="avatar" title="User profile">
           NV
         </div>
+        <button className="btn btn--logout" onClick={handleLogout}>
+          Logout
+        </button>
       </div>
     </header>
   );
