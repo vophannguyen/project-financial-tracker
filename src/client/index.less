@@ -1,39 +1,349 @@
-@bg: #ffffff;
-@text: #333;
-@link-color: #428bca; // sea blue
-@link-color-hover: darken(@link-color, 10%);
+/* styles.less - Variables and layout for Dashboard mockup */
 
-@font-face {
-  font-family: Inter;
-  src: url("./assets/Inter.ttf");
-}
+/* Variables */
+@bg: #f5f7fb;
+@card-bg: #ffffff;
+@muted: #6b7280;
+@text: #0f172a;
+@primary: #1967d2; // blue
+@accent: #10b981; // green
+@danger: #ef4444; // red
+@soft: #eef2f7;
+@rounded: 14px;
 
-:root {
-  font-family: Inter, sans-serif;
-
-  color: @text;
-  background-color: @bg;
-}
-
+/* Reset */
 * {
   box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial;
+  background: @bg;
+  color: @text;
   margin: 0;
-  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-ul,
-ol,
-menu {
-  list-style: none;
+/* Topbar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 28px;
+  background: fade(@card-bg, 95%);
+  border-bottom: 1px solid #e6edf7;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.02);
+  position: sticky;
+  top: 0;
+  z-index: 20;
 }
-
-a {
+.logo {
+  font-weight: 700;
+  font-size: 20px;
+  margin-right: 18px;
+}
+.nav {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.nav__link {
+  color: darken(@muted, 10%);
   text-decoration: none;
-  color: @link-color;
-  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+.nav__link.active {
+  color: @primary;
+  background: fade(@primary, 8%);
+}
 
-  &:hover {
-    text-decoration: underline;
-    color: @link-color-hover;
+/* Topbar right */
+.topbar__right {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.btn {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(16, 24, 40, 0.06);
+  background: transparent;
+  cursor: pointer;
+}
+.btn--ghost {
+  color: @primary;
+  border-color: fade(@primary, 20%);
+}
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e6f0ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: @primary;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 28px auto;
+  padding: 0 18px 64px;
+}
+
+/* Grid helper */
+.grid {
+  display: grid;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+.grid--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Card */
+.card {
+  background: @card-bg;
+  border-radius: @rounded;
+  padding: 18px;
+  box-shadow: 0 6px 18px rgba(11, 20, 36, 0.04);
+  border: 1px solid rgba(15, 23, 42, 0.03);
+}
+.card__title {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #081125;
+}
+
+/* Balance Card */
+.balance-card__amount {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+.balance-breakdown {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.balance-breakdown li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: @muted;
+  font-weight: 600;
+}
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.dot--blue {
+  background: @primary;
+}
+.dot--green {
+  background: @accent;
+}
+.dot--red {
+  background: @danger;
+}
+
+/* Chart cards */
+.chart {
+  height: 140px;
+  background: linear-gradient(180deg, transparent, transparent);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chart--line {
+  height: 120px;
+}
+.net-cashflow {
+  margin-top: 8px;
+  font-weight: 700;
+  color: @muted;
+}
+.positive {
+  color: @accent;
+}
+.negative {
+  color: @danger;
+}
+
+/* Transactions */
+.transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 14px;
+}
+.transactions-table th,
+.transactions-table td {
+  text-align: left;
+  padding: 10px 6px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #0f172a;
+}
+.transactions-table thead th {
+  color: @muted;
+  font-weight: 700;
+  font-size: 13px;
+}
+.align-right {
+  text-align: right;
+}
+.positive {
+  color: @accent;
+  font-weight: 700;
+}
+.negative {
+  color: @danger;
+  font-weight: 700;
+}
+
+/* Chips & badges */
+.chip {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 6px 10px;
+  border: 1px solid rgba(15, 23, 42, 0.04);
+  background: fade(@card-bg, 80%);
+  cursor: pointer;
+  margin-right: 6px;
+}
+.chip.active {
+  background: fade(@primary, 8%);
+  color: @primary;
+  border-color: fade(@primary, 14%);
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 12px;
+  color: #0c1224;
+  background: #eef2ff;
+}
+.badge--blue {
+  background: fade(@primary, 14%);
+}
+.badge--green {
+  background: fade(@accent, 14%);
+}
+.badge--orange {
+  background: #fff4e6;
+}
+.badge--red {
+  background: fade(@danger, 12%);
+}
+
+/* Budgets list */
+.budget-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.budget-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.label {
+  font-weight: 700;
+}
+.percent {
+  width: 48px;
+  text-align: right;
+  color: @muted;
+}
+.progress {
+  flex: 1;
+  height: 10px;
+  background: #f1f5f9;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-right: 10px;
+}
+.progress.small {
+  height: 8px;
+}
+.progress__bar {
+  height: 100%;
+  background: @primary;
+  border-radius: 8px;
+  transition: width 0.3s ease;
+}
+.progress__bar--danger {
+  background: @danger;
+}
+
+/* Goals */
+.goals-grid {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+}
+.goal {
+  margin-bottom: 10px;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: 24px;
+  color: @muted;
+}
+
+/* utilities */
+.muted {
+  color: @muted;
+}
+.small {
+  font-size: 13px;
+}
+.align-right {
+  text-align: right;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .grid--3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 720px) {
+  .grid--3 {
+    grid-template-columns: 1fr;
+  }
+  .topbar {
+    padding: 12px;
+  }
+  .container {
+    padding: 0 12px;
   }
 }
