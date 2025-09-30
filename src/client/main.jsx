@@ -12,6 +12,7 @@ import Root from "./layout/Root.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./features/dashboard/Dashboard.jsx";
+import Budgets from "./features/budgets/Budgets.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Dashboard /> },
       { path: "/tasks", element: <Tasks /> },
       { path: "/login", element: <AuthForm /> },
+      { path: "/budget", element: <Budgets /> },
     ],
   },
 ]);

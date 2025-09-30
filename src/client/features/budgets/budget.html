@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Finance Tracker — Budgets</title>
+
+    <!-- Link to LESS file -->
+    <link rel="stylesheet/less" type="text/css" href="Budget.less" />
+    <script src="https://cdn.jsdelivr.net/npm/less@4.2.0"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar__left">
+        <div class="logo">Finance</div>
+        <nav class="nav">
+          <a class="nav__link" href="#">Dashboard</a>
+          <a class="nav__link active" href="#">Budgets</a>
+          <a class="nav__link" href="#">Goals</a>
+          <a class="nav__link" href="#">Reports</a>
+          <a class="nav__link" href="#">Transactions</a>
+        </nav>
+      </div>
+      <div class="topbar__right">
+        <button class="btn btn--ghost">Export</button>
+        <div class="avatar" title="User profile">NV</div>
+      </div>
+    </header>
+
+    <main class="container-bud">
+      <section class="page-head">
+        <div>
+          <h1>Budgets</h1>
+          <p class="muted">Plan monthly spending and keep track of limits</p>
+        </div>
+
+        <div class="controls">
+          <select id="monthSelect" class="select">
+            <option>September 2025</option>
+            <option>August 2025</option>
+            <option>July 2025</option>
+          </select>
+          <button class="btn" id="addBudgetBtn">+ Add Budget</button>
+          <button class="btn btn--ghost" id="addCategoryBtn">+ Category</button>
+        </div>
+      </section>
+
+      <section class="grid grid--2">
+        <div class="card budgets-card">
+          <h3 class="card__title">Monthly Budgets</h3>
+
+          <div class="budget-headers">
+            <div class="col col--cat">Category</div>
+            <div class="col col--amount">Limit</div>
+            <div class="col col--spent">Spent</div>
+            <div class="col col--progress">Progress</div>
+            <div class="col col--actions"></div>
+          </div>
+
+          <ul class="budget-list">
+            <li class="budget-row">
+              <div class="col col--cat">
+                <div class="cat-meta">
+                  <span class="dot" style="background: #1967d2"></span
+                  ><strong>Groceries</strong>
+                </div>
+              </div>
+              <div class="col col--amount">$2,000</div>
+              <div class="col col--spent">$1,400</div>
+              <div class="col col--progress">
+                <div class="progress">
+                  <div class="progress__bar" style="width: 70%"></div>
+                </div>
+                <div class="percent">70%</div>
+              </div>
+              <div class="col col--actions">
+                <button class="icon-btn" title="Edit">✎</button>
+                <button class="icon-btn" title="Delete">🗑</button>
+              </div>
+            </li>
+
+            <li class="budget-row">
+              <div class="col col--cat">
+                <div class="cat-meta">
+                  <span class="dot" style="background: #10b981"></span
+                  ><strong>Rent</strong>
+                </div>
+              </div>
+              <div class="col col--amount">$1,200</div>
+              <div class="col col--spent">$1,200</div>
+              <div class="col col--progress">
+                <div class="progress">
+                  <div
+                    class="progress__bar progress__bar--danger"
+                    style="width: 100%"
+                  ></div>
+                </div>
+                <div class="percent">100%</div>
+              </div>
+              <div class="col col--actions">
+                <button class="icon-btn" title="Edit">✎</button>
+                <button class="icon-btn" title="Delete">🗑</button>
+              </div>
+            </li>
+
+            <li class="budget-row">
+              <div class="col col--cat">
+                <div class="cat-meta">
+                  <span class="dot" style="background: #f59e0b"></span
+                  ><strong>Utilities</strong>
+                </div>
+              </div>
+              <div class="col col--amount">$800</div>
+              <div class="col col--spent">$400</div>
+              <div class="col col--progress">
+                <div class="progress">
+                  <div class="progress__bar" style="width: 50%"></div>
+                </div>
+                <div class="percent">50%</div>
+              </div>
+              <div class="col col--actions">
+                <button class="icon-btn" title="Edit">✎</button>
+                <button class="icon-btn" title="Delete">🗑</button>
+              </div>
+            </li>
+
+            <li class="budget-row">
+              <div class="col col--cat">
+                <div class="cat-meta">
+                  <span class="dot" style="background: #ef4444"></span
+                  ><strong>Dining Out</strong>
+                </div>
+              </div>
+              <div class="col col--amount">$300</div>
+              <div class="col col--spent">$190</div>
+              <div class="col col--progress">
+                <div class="progress">
+                  <div class="progress__bar" style="width: 63%"></div>
+                </div>
+                <div class="percent">63%</div>
+              </div>
+              <div class="col col--actions">
+                <button class="icon-btn" title="Edit">✎</button>
+                <button class="icon-btn" title="Delete">🗑</button>
+              </div>
+            </li>
+          </ul>
+
+          <div class="muted small">
+            Tip: Click a category to edit or drag to reorder (future
+            enhancement)
+          </div>
+        </div>
+
+        <aside class="card side-card">
+          <h3 class="card__title">Budget Overview</h3>
+          <div class="overview-grid">
+            <div class="overview-item">
+              <div class="muted small">Total Limit</div>
+              <div class="value">$4,300</div>
+            </div>
+            <div class="overview-item">
+              <div class="muted small">Total Spent</div>
+              <div class="value negative">$3,190</div>
+            </div>
+            <div class="overview-item">
+              <div class="muted small">Remaining</div>
+              <div class="value">$1,110</div>
+            </div>
+          </div>
+
+          <div class="chart-placeholder">
+            <!-- Placeholder for pie chart -->
+            <svg width="180" height="180" viewBox="0 0 100 100" class="pie">
+              <circle cx="50" cy="50" r="30" fill="#f3f7fb" />
+              <path
+                d="M50 20 A30 30 0 0 1 80 50 L50 50 Z"
+                fill="#1967d2"
+              ></path>
+              <path
+                d="M80 50 A30 30 0 0 1 60 80 L50 50 Z"
+                fill="#10b981"
+              ></path>
+              <path
+                d="M60 80 A30 30 0 0 1 40 60 L50 50 Z"
+                fill="#f59e0b"
+              ></path>
+            </svg>
+            <div
+              class="muted small"
+              style="text-align: center; margin-top: 8px"
+            >
+              Category distribution
+            </div>
+          </div>
+
+          <div style="margin-top: 18px">
+            <button class="btn btn--primary" id="addBudgetQuick">
+              Add Budget
+            </button>
+            <button class="btn btn--ghost" id="exportBudgets">
+              Export CSV
+            </button>
+          </div>
+        </aside>
+      </section>
+
+      <footer class="footer muted">
+        © <span id="year"></span> Finance Tracker — Budgets
+      </footer>
+    </main>
+
+    <!-- Add/Edit Budget modal (hidden by default) -->
+    <div id="budgetModal" class="modal" aria-hidden="true">
+      <div class="modal__card">
+        <h3 id="modalTitle">Add Budget</h3>
+        <form id="budgetForm">
+          <label>Category</label>
+          <select id="modalCategory" class="select">
+            <option>Groceries</option>
+            <option>Rent</option>
+            <option>Utilities</option>
+            <option>Dining Out</option>
+          </select>
+
+          <label>Monthly Limit</label>
+          <input
+            id="modalAmount"
+            class="input"
+            type="number"
+            placeholder="Amount in USD"
+          />
+
+          <div
+            style="
+              display: flex;
+              gap: 10px;
+              margin-top: 12px;
+              justify-content: flex-end;
+            "
+          >
+            <button type="button" class="btn btn--ghost" id="cancelModal">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn--primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // small UI interactions for demo
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      const modal = document.getElementById("budgetModal");
+      const addBtns = [
+        document.getElementById("addBudgetBtn"),
+        document.getElementById("addBudgetQuick"),
+      ];
+
+      addBtns.forEach(
+        (b) =>
+          b &&
+          b.addEventListener("click", () => {
+            modal.setAttribute("aria-hidden", "false");
+            modal.style.display = "flex";
+          })
+      );
+
+      document.getElementById("cancelModal").addEventListener("click", () => {
+        modal.setAttribute("aria-hidden", "true");
+        modal.style.display = "none";
+      });
+
+      document.getElementById("budgetForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        alert("Budget saved (demo). In real app, call API and refresh list.");
+        modal.setAttribute("aria-hidden", "true");
+        modal.style.display = "none";
+      });
+    </script>
+  </body>
+</html>
