@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../features/auth/authSlice";
 
 export default function Header() {
@@ -14,12 +14,12 @@ export default function Header() {
       <div className="topbar__left">
         <div className="logo">Finance</div>
         <nav className="nav">
-          <a className="nav__link active" href="#">
+          <NavLink className="nav__link " to="/">
             Dashboard
-          </a>
-          <a className="nav__link" href="#">
+          </NavLink>
+          <NavLink className="nav__link" to="/budget">
             Budgets
-          </a>
+          </NavLink>
           <a className="nav__link" href="#">
             Goals
           </a>
