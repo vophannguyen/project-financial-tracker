@@ -1,6 +1,12 @@
 import AddBudget from "./AddBudget";
 import "./Budget.less";
+import { useGetBudgetsQuery } from "./budgetSlice";
 export default function Budgets() {
+  const { data: budget, isLoading } = useGetBudgetsQuery();
+  if (isLoading) {
+    return <div>Loading.........</div>;
+  }
+  console.log(budget);
   return (
     <div className="container-bud">
       <section className="page-head">
@@ -36,121 +42,52 @@ export default function Budgets() {
             <div className="col col--actions"></div>
           </div>
 
-          <ul className="budget-list">
-            <li className="budget-row">
-              <div className="col col--cat">
-                <div className="cat-meta">
-                  <span
-                    className="dot"
-                    style={{ background: "#1967d2" }}
-                  ></span>
-                  <strong>Groceries</strong>
-                </div>
-              </div>
-              <div className="col col--amount">$2,000</div>
-              <div className="col col--spent">$1,400</div>
-              <div className="col col--progress">
-                <div className="progress">
-                  <div className="progress__bar" style={{ width: "50%" }}></div>
-                </div>
-                <div className="percent">70%</div>
-              </div>
-              <div className="col col--actions">
-                <button className="icon-btn" title="Edit">
-                  ✎
-                </button>
-                <button className="icon-btn" title="Delete">
-                  🗑
-                </button>
-              </div>
-            </li>
-
-            <li className="budget-row">
-              <div className="col col--cat">
-                <div className="cat-meta">
-                  <span
-                    className="dot"
-                    style={{ background: "#10b981" }}
-                  ></span>
-                  <strong>Rent</strong>
-                </div>
-              </div>
-              <div className="col col--amount">$1,200</div>
-              <div className="col col--spent">$1,200</div>
-              <div className="col col--progress">
-                <div className="progress">
-                  <div
-                    className="progress__bar progress__bar--danger"
-                    style={{ width: "50%" }}
-                  ></div>
-                </div>
-                <div className="percent">100%</div>
-              </div>
-              <div className="col col--actions">
-                <button className="icon-btn" title="Edit">
-                  ✎
-                </button>
-                <button className="icon-btn" title="Delete">
-                  🗑
-                </button>
-              </div>
-            </li>
-
-            <li className="budget-row">
-              <div className="col col--cat">
-                <div className="cat-meta">
-                  <span
-                    className="dot"
-                    style={{ background: "#f59e0b" }}
-                  ></span>
-                  <strong>Utilities</strong>
-                </div>
-              </div>
-              <div className="col col--amount">$800</div>
-              <div className="col col--spent">$400</div>
-              <div className="col col--progress">
-                <div className="progress">
-                  <div className="progress__bar" style={{ width: "50%" }}></div>
-                </div>
-                <div className="percent">50%</div>
-              </div>
-              <div className="col col--actions">
-                <button className="icon-btn" title="Edit">
-                  ✎
-                </button>
-                <button className="icon-btn" title="Delete">
-                  🗑
-                </button>
-              </div>
-            </li>
-
-            <li className="budget-row">
-              <div className="col col--cat">
-                <div className="cat-meta">
-                  <span
-                    className="dot"
-                    style={{ background: "#ef4444" }}
-                  ></span>
-                  <strong>Dining Out</strong>
-                </div>
-              </div>
-              <div className="col col--amount">$300</div>
-              <div className="col col--spent">$190</div>
-              <div className="col col--progress">
-                <div className="progress">
-                  <div className="progress__bar" style={{ width: "50%" }}></div>
-                </div>
-                <div className="percent">63%</div>
-              </div>
-              <div className="col col--actions">
-                <button className="icon-btn" title="Edit">
-                  ✎
-                </button>
-                <button className="icon-btn" title="Delete">
-                  🗑
-                </button>
-              </div>
-            </li>
+          <ul className="budget-list-bd">
+            {budget.map((bud) => {
+              return (
+                <li className="budget-row-bd" key={bud.id}>
+                  <div className="col col--cat">
+                    <div className="cat-meta">
+                      <span
+                        className="dot"
+                        style={{ background: `${bud.color}` }}
+                      ></span>
+                      <strong>{bud.name}</strong>
+                    </div>
+                  </div>
+                  <div className="col col--amount">${bud.amount}</div>
+                  <div className="col col--spent">${bud.spent}</div>
+                  <div className="col col--progress">
+                    <div className="progress">
+                      <div
+                        className="progress__bar"
+                        style={{
+                          width: `${
+                            bud.amount > 0
+                              ? Math.ceil(bud.spent / bud.amount) * 100
+                              : 0
+                          }%`,
+                        }}
+                      ></div>
+                    </div>
+                    <div className="percent">
+                      {Number(bud.amount) > 0
+                        ? Math.ceil((bud.spent / bud.amount) * 100)
+                        : 0}
+                      %
+                    </div>
+                  </div>
+                  <div className="col col--actions">
+                    <button className="icon-btn" title="Edit">
+                      ✎
+                    </button>
+                    <button className="icon-btn" title="Delete">
+                      🗑
+                    </button>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
 
           <div className="muted small">
